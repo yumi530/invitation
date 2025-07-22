@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>구의모임 x 청첩장 파티 초대장</title>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #fdf6f0;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 600px;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #d57a66;
+    }
+    .rsvp {
+      margin-top: 30px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 1rem;
+    }
+    .footer {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>구의모임 x 청첩장 파티 🎉</h1>
+    <p>
+      <span class="highlight">청첩장을 전하려고 부담스럽게 모시는 건 아니에요.</span><br />
+      잠깐 들르셔도 좋아요 😊<br />
+      <br />
+      오랜만에 구의모임 멤버들과<br />
+      <span class="highlight">기쁜 소식</span>도 나누고<br />
+      <span class="highlight">즐거운 휴일 전날 밤</span>을 보내고 싶어요!
+    </p>
+    <p>
+      <strong>일시:</strong> 8월 14일 (목) 저녁 7시 ~ 익일 10시<br />
+      <strong>장소:</strong> <br />
+    </p>
+    <p>
+      <strong>메뉴:</strong> 바베큐 파티 🍖<br />
+      소주, 맥주, 음료 준비되어 있어요 🍻<br />
+      원하시는 음식이나 주류가 있다면<br />
+      자유롭게 가져오셔도 좋고, <span class="highlight">그냥 오셔도 환영입니다!</span>
+    </p>
+    
+    <div class="rsvp">
+      <h2>참석 여부 알려주세요 💌</h2>
+      <form onsubmit="submitRSVP(event)">
+        <input type="text" id="name" placeholder="이름" required />
+        <select id="status" required>
+          <option value="">참석 여부</option>
+          <option value="yes">참석해요!</option>
+          <option value="no">어려울 것 같아요</option>
+        </select>
+        <br />
+        <button type="submit">보내기</button>
+      </form>
+    </div>
+
+    <div class="footer">
+      * 문의 사항은 인스타 DM 또는 단톡방으로 알려주세요 💬
+    </div>
+  </div>
+
+  <script>
+    function submitRSVP(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const status = document.getElementById('status').value;
+
+      if (name && status) {
+        alert(`${name}님의 참석 여부: ${status === 'yes' ? '참석' : '불참'} 로 저장되었습니다! 감사합니다 💕`);
+      } else {
+        alert('이름과 참석 여부를 모두 입력해주세요.');
+      }
+    }
+  </script>
+</body>
+</html>
