@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css" rel="stylesheet" />
   
   <title>구의모임 x 청첩장 파티 초대장</title>
+  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=vl9dcy5ogf"></script>
   <style>
     @font-face {
       font-family: 'AppleSDGothicNeo';
@@ -26,15 +28,22 @@
       text-align: center;
     }
     .box {
-        background-color: white;
-        padding-top: 3%;
-        padding-bottom: 3%;
-        padding-left: 3%;
-        padding-right: 3%;
+        background-color: #fff0ea;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        padding-left: 50px;
+        padding-right: 50px;
     }
-    h1 {
-      font-size: 1.3rem;
-      margin-bottom: 50px;
+    .subtitle {
+    font-size: 1.2em;
+    color: #b84d63;
+    margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 1.5em;
+      font-family: 'Pretendard', sans-serif;
+      margin-bottom: 30px;
     }
     p {
       line-height: 1.7;
@@ -85,14 +94,20 @@
       z-index: 9999;
       pointer-events: none;
     }
+    .rsvpBtn:hover {
+      background-color: #ff91a4;
+    }
   </style>
 </head>
 <body>
   <canvas id="confetti-canvas"></canvas>
   <div class="container">
     <div class="box">
-    <h1>🎉구의모임 x 유몽부부 청첩장 파티 초대장🎉</h1>
+    <h3 class="subtitle">구의모임 x 유몽부부</h3>
+<h1 class="title">🎉청첩장 파티 초대장🎉</h1>
+    <img src="images/wedding_image.png" width="400" height="400" />
     <p>
+      <p>소중한 구의모임 여러분을 초대합니다.</p>
       <span class="highlight">💌부담스러운 청첩장 전달 , 결혼식 참여 강요 아님 !</span><br />
 
       <br />
@@ -113,21 +128,26 @@
     </p>
     
     <!-- 지도 추가 -->
-    
+    <div id="map" style="width:100%;height:300px;"></div>
+    <script>
+var mapOptions = {
+    center: new naver.maps.LatLng(37.542486, 127.069666),
+    zoom: 10
+};
 
-        
-    <a href="https://wedding-peach.com/hongseokyumin" style="color: #d57a66; text-decoration: none; font-weight: bold; ">
-    💌모바일 청첩장 바로가기(궁금하면 클릭!)</a><br />
+var map = new naver.maps.Map('map', mapOptions);
+</script>
       
     <div class="rsvp">
-      <h2>참석 여부 알려주세요 💌</h2>
-      
+      <!-- <h3>참석 여부 알려주세요 💌</h3> -->
   <button class="rsvpBtn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScIbsgphi-Ch-Os_cOpxAAUITSlzhNf4qCP8mH-w8daIo8s7w/viewform?usp=dialog')">
     참석 여부 알리기❤️
   </button>
-
     </div>
-
+    <div style="margin-top: 20px;">
+    <a href="https://wedding-peach.com/hongseokyumin" style="color: #d57a66; text-decoration: none; font-weight: bold;">
+    💌모바일 청첩장 바로가기</a>
+    </div>
     <div class="footer">
       * 문의 사항은 인스타DM or 카카오톡으로 알려주세요 💬<br />
       <a href="https://instagram.com/uuumiiinn" target="_blank" aria-label="Instagram">
@@ -138,7 +158,6 @@
 </a>
     </div>
   </div>
-  
 
   <!-- 컨페티 JS -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
