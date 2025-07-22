@@ -6,7 +6,7 @@
   <link href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css" rel="stylesheet" />
   
   <title>구의모임 x 청첩장 파티 초대장</title>
-  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=vl9dcy5ogf"></script>
+  
   <style>
     @font-face {
       font-family: 'AppleSDGothicNeo';
@@ -128,23 +128,43 @@
     </p>
     
     <!-- 지도 추가 -->
-    <div id="map" style="width:100%;height:300px;"></div>
-    <script>
-var mapOptions = {
-    center: new naver.maps.LatLng(37.542486, 127.069666),
-    zoom: 10
-};
+<div id="map" style="width: 100%; height: 300px; border-radius: 12px; margin-top: 20px;"></div>
 
-var map = new naver.maps.Map('map', mapOptions);
+<div style="margin-top: 12px; font-size: 0.9rem; color: #444;">
+  📍지도를 눌러 길찾기 하실 수 있어요!
+</div>
+    <script>
+  var mapOptions = {
+    center: new naver.maps.LatLng(37.542486, 127.069666),
+    zoom: 17
+  };
+
+  var map = new naver.maps.Map('map', mapOptions);
+
+  // 마커 추가
+  var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.542486, 127.069666),
+    map: map
+  });
+
+  // 마커 클릭 시 네이버 길찾기 연결
+  naver.maps.Event.addListener(marker, "click", function(e) {
+    var lat = 37.542486;
+    var lng = 127.069666;
+    var url = `https://map.naver.com/p/directions/-/-/${lng},${lat},도착지/TRANSIT`;
+    window.open(url, "_blank");
+  });
 </script>
       
     <div class="rsvp">
       <!-- <h3>참석 여부 알려주세요 💌</h3> -->
-  <button class="rsvpBtn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScIbsgphi-Ch-Os_cOpxAAUITSlzhNf4qCP8mH-w8daIo8s7w/viewform?usp=dialog')">
+  <button class="rsvpBtn">
     참석 여부 알리기❤️
   </button>
+  <div style="font-size: 0.7rem; color: #888;">
+      * 준비를 위해 참석 여부를 미리 알려주시면 감사하겠습니다 😊<br />
     </div>
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 50px;"></div>
     <a href="https://wedding-peach.com/hongseokyumin" style="color: #d57a66; text-decoration: none; font-weight: bold;">
     💌모바일 청첩장 바로가기</a>
     </div>
@@ -158,6 +178,28 @@ var map = new naver.maps.Map('map', mapOptions);
 </a>
     </div>
   </div>
+
+  <script>
+  fetch('./config.json')
+  .then(response => response.json())
+  .then(config => {
+    // 지도 API 동적 로드
+    const mapScript = document.createElement('script');
+    mapScript.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${config.ncpKeyId}`;
+    document.head.appendChild(mapScript);
+
+    // 참석 여부 버튼 클릭 시 구글폼 열기
+    const rsvpBtn = document.getElementById('rsvpBtn');
+    if (rsvpBtn) {
+      rsvpBtn.addEventListener('click', () => {
+        window.open(config.formUrl, '_blank');
+      });
+    }
+  })
+  .catch(error => {
+    console.error("config.json 로딩 실패:", error);
+  });
+</script>
 
   <!-- 컨페티 JS -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -182,19 +224,6 @@ var map = new naver.maps.Map('map', mapOptions);
       }));
     }, 250);
   </script>
-  <script>
-  fetch('./config.json')
-    .then(response => response.json())
-    .then(config => {
-      const formUrl = config.formUrl;
-      document.getElementById('rsvpBtn').addEventListener('click', () => {
-        window.open(formUrl);
-      });
-    })
-    .catch(error => {
-      console.error("config.json 로딩 오류:", error);
-    });
-</script>
 </body>
 </html>
 
