@@ -158,7 +158,7 @@
       
     <div class="rsvp">
       <!-- <h3>참석 여부 알려주세요 💌</h3> -->
-  <button class="rsvpBtn">
+  <button button id="rsvpBtn" class="rsvpBtn">
     참석 여부 알리기❤️
   </button>
   <div style="font-size: 0.7rem; color: #888;">
@@ -166,7 +166,7 @@
     </div>
     <div style="margin-top: 50px;"></div>
     <a href="https://wedding-peach.com/hongseokyumin" style="color: #d57a66; text-decoration: none; font-weight: bold;">
-    💌모바일 청첩장 바로가기</a>
+    🎀모바일 청첩장이 구경하기</a>
     </div>
     <div class="footer">
       * 문의 사항은 인스타DM or 카카오톡으로 알려주세요 💬<br />
@@ -181,24 +181,44 @@
 
   <script>
   fetch('./config.json')
-  .then(response => response.json())
-  .then(config => {
-    // 지도 API 동적 로드
-    const mapScript = document.createElement('script');
-    mapScript.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${config.ncpKeyId}`;
-    document.head.appendChild(mapScript);
+    .then(response => response.json())
+    .then(config => {
+      const mapScript = document.createElement('script');
+      mapScript.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${config.ncpKeyId}`;
+      mapScript.onload = () => {
+        // 지도 초기화
+        const mapOptions = {
+          center: new naver.maps.LatLng(37.542486, 127.069666),
+          zoom: 17
+        };
+        const map = new naver.maps.Map('map', mapOptions);
 
-    // 참석 여부 버튼 클릭 시 구글폼 열기
-    const rsvpBtn = document.getElementById('rsvpBtn');
-    if (rsvpBtn) {
-      rsvpBtn.addEventListener('click', () => {
-        window.open(config.formUrl, '_blank');
-      });
-    }
-  })
-  .catch(error => {
-    console.error("config.json 로딩 실패:", error);
-  });
+        // 마커 추가
+        const marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(37.542486, 127.069666),
+          map: map
+        });
+
+        naver.maps.Event.addListener(marker, "click", function(e) {
+          const lat = 37.542486;
+          const lng = 127.069666;
+          const url = `https://map.naver.com/p/directions/-/-/${lng},${lat},도착지/TRANSIT`;
+          window.open(url, "_blank");
+        });
+      };
+      document.head.appendChild(mapScript);
+
+      // 참석 여부 버튼 이벤트 연결
+      const rsvpBtn = document.getElementById('rsvpBtn');
+      if (rsvpBtn && config.formUrl) {
+        rsvpBtn.addEventListener('click', () => {
+          window.open(config.formUrl, '_blank');
+        });
+      }
+    })
+    .catch(error => {
+      console.error("config.json 로딩 실패 또는 필드 누락:", error);
+    });
 </script>
 
   <!-- 컨페티 JS -->
