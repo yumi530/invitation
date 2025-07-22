@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>구의모임 x 청첩장 파티 초대장</title>
   <style>
+    @font-face {
+      font-family: 'AppleSDGothicNeo';
+      src: local('Apple SD Gothic Neo'), local('AppleSDGothicNeo-Regular');
+    }
     body {
-      font-family: 'Pretendard', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
       background-color: #fdf6f0;
       color: #333;
       margin: 0;
@@ -20,9 +25,16 @@
       padding: 40px 20px;
       text-align: center;
     }
+    .box {
+        background-color: white;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        padding-left: 3%;
+        padding-right: 3%;
+    }
     h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
+      font-size: 1.5rem;
+      margin-bottom: 50px;
     }
     p {
       line-height: 1.7;
@@ -45,61 +57,121 @@
       color: #888;
       margin-top: 40px;
     }
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 300px;
+      border-radius: 1rem;
+      margin: 2rem 0;
+    }
+    .form-button {
+      background-color: #ffb6b6;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
+  <canvas id="confetti-canvas"></canvas>
   <div class="container">
-    <h1>구의모임 x 청첩장 파티 🎉</h1>
+    <div class="box">
+    <h1>🎉구의모임 x 유몽부부 청첩장 파티🎉</h1>
     <p>
-      <span class="highlight">청첩장을 전하려고 부담스럽게 모시는 건 아니에요.</span><br />
-      잠깐 들르셔도 좋아요 😊<br />
+      <span class="highlight">💌부담스러운 청첩장 전달 , 결혼식 참여 강요 아님 !💌</span><br />
+
       <br />
       오랜만에 구의모임 멤버들과<br />
-      <span class="highlight">기쁜 소식</span>도 나누고<br />
+      즐겁고 편안하게 <span class="highlight">기쁜 소식</span>도 나누고<br />
       <span class="highlight">즐거운 휴일 전날 밤</span>을 보내고 싶어요!
     </p>
     <p>
       <strong>일시:</strong> 8월 14일 (목) 저녁 7시 ~ 익일 10시<br />
-      <strong>장소:</strong> <br />
+      <strong>장소:</strong>서울 광진구 아차산로31길 27 4층 캠프라운지 <br />
     </p>
     <p>
       <strong>메뉴:</strong> 바베큐 파티 🍖<br />
-      소주, 맥주, 음료 준비되어 있어요 🍻<br />
+      소주, 맥주, 음료 그리고 음악이 준비되어 있어요 🍻<br />
       원하시는 음식이나 주류가 있다면<br />
-      자유롭게 가져오셔도 좋고, <span class="highlight">그냥 오셔도 환영입니다!</span>
+      자유롭게 가져오셔도 좋고, <span class="highlight">그냥 오셔도 환영입니다!</span><br />
+      편하게, 재밌게, 부담 없이 즐겨요 💃🕺
     </p>
     
+    <!-- 지도 추가 -->
+    
+
     <div class="rsvp">
       <h2>참석 여부 알려주세요 💌</h2>
-      <form onsubmit="submitRSVP(event)">
-        <input type="text" id="name" placeholder="이름" required />
-        <select id="status" required>
-          <option value="">참석 여부</option>
-          <option value="yes">참석해요!</option>
-          <option value="no">어려울 것 같아요</option>
-        </select>
-        <br />
-        <button type="submit">보내기</button>
-      </form>
+      
+  <button class="rsvpBtn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScIbsgphi-Ch-Os_cOpxAAUITSlzhNf4qCP8mH-w8daIo8s7w/viewform?usp=dialog')">
+    참석 여부 알리기💙
+  </button>
+
     </div>
 
     <div class="footer">
-      * 문의 사항은 인스타 DM 또는 단톡방으로 알려주세요 💬
+      * 문의 사항은 인스타DM or 카카오톡으로 알려주세요 💬<br />
+      <a href="https://instagram.com/uuumiiinn" target="_blank" aria-label="Instagram">
+  <img src="images/instagram_image.png" alt="Instagram" width="20" height="20" />
+</a>
+<a href="https://open.kakao.com/o/scRWOjlh" target="_blank" aria-label="KakaoTalk">
+  <img src="images/kakaotalk_image.png" alt="KakaoTalk" width="20" height="20" />
+</a>
     </div>
   </div>
+  
 
+  <!-- 컨페티 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    function submitRSVP(event) {
-      event.preventDefault();
-      const name = document.getElementById('name').value;
-      const status = document.getElementById('status').value;
+    const duration = 10 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 20, spread: 360, ticks: 60, zIndex: 0 };
 
-      if (name && status) {
-        alert(`${name}님의 참석 여부: ${status === 'yes' ? '참석' : '불참'} 로 저장되었습니다! 감사합니다 💕`);
-      } else {
-        alert('이름과 참석 여부를 모두 입력해주세요.');
-      }
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
     }
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) return clearInterval(interval);
+      confetti(Object.assign({}, defaults, {
+        particleCount: 3,
+        origin: {
+          x: randomInRange(0.1, 0.9),
+          y: Math.random() - 0.2
+        }
+      }));
+    }, 250);
   </script>
+  <script>
+  fetch('./config.json')
+    .then(response => response.json())
+    .then(config => {
+      const formUrl = config.formUrl;
+      document.getElementById('rsvpBtn').addEventListener('click', () => {
+        window.open(formUrl);
+      });
+    })
+    .catch(error => {
+      console.error("config.json 로딩 오류:", error);
+    });
+</script>
 </body>
 </html>
+
